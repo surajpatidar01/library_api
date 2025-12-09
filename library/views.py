@@ -1,3 +1,102 @@
-from django.shortcuts import render
+from rest_framework import viewsets, permissions
+from .models import Book, Task
+from .serializer import BookSerializer, TaskSerializer
 
-# Create your views here.
+
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Logged-in user की tasks ही show हों
+        queryset = Task.objects.filter(user=self.request.user)
+
+        # Filter by status
+        status = self.request.query_params.get('status')
+        if status:
+            queryset = queryset.filter(status=status)
+
+        # Filter by category
+        category = self.request.query_params.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#--book view
+
+# class BookListView(generics.ListAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+
+
+
+
+
+
+
+# class BookListCreateView(generics.ListCreateAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+#
+#
+#
+# class BookUpdate(generics.UpdateAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+#
+#
+# class BookDelete(generics.DestroyAPIView):
+#     queryset = Book.objects.all()
+
+    # serializer_class = BookSerializer
+
+
+
+#
+# class TaskListView(generics.ListAPIView):
+#     queryset = Task.objects.all()
+#     serializer_class = TaskSerializer
