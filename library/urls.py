@@ -9,24 +9,6 @@ router.register('task', TaskViewSet,basename='task'),
 
 urlpatterns = router.urls
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # from django.contrib import admin
 # from django.urls import path
 # from .views import (BookCreateList,BookRetrieveUpdateDestroyView,
@@ -56,10 +38,4 @@ urlpatterns = router.urls
 #     #--Task urls
 #     path('task/', TaskCreateList.as_view(), name='task-list-create'),
 #     path('task/<int:pk>/', TaskRetrieveUpdateDestroyView.as_view(), name='task-rud'),
-#
-#
-#
-#
-# ]
-#
 #

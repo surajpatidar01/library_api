@@ -10,14 +10,10 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # JWT Token URLs
     path('gettoken/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refreshtoken/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # Your app URLs
     path('api/', include('library.urls')),
-
-    # DRF Browsable API login/logout
     path('api-auth/', include('rest_framework.urls')),
 ]
 
