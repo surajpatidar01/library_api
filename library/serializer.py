@@ -10,8 +10,8 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    book = serializers.SlugRelatedField(queryset=Book.objects.all(),slug_field='title')
-    user = serializers.SlugRelatedField(queryset=User.objects.all(),slug_field='username')
+    book = serializers.PrimaryKeyRelatedField(queryset=Book.objects.all())
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Task
